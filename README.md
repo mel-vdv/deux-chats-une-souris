@@ -27,6 +27,8 @@ gestion des scores:
   
 ***gestion des données***:
 création d'une base de données (recours à mongo atlas) intitulée "jeu"
-elle contient 2 collections : "users" et "partie"
+elle contient 2 collections : "users" et "partie" dont les champs sont : 
+ - users : pseudo, score
+ - partie : joueur1, joueur2 (les pseudos), carreX, carreY(coordonnées x et y de la souris), joueur1x, joueur1y, joueur2x, joueur2y (coordonnées x et y des joueurs 1 et 2), pointsJ1, pointsJ2 (points cumulés sur 8 lors de la partie à un moment t)
 
 ***compatibilité*** avec les navigateurs : chrome 10, firefox5, opera9, i.e.9, safari5
