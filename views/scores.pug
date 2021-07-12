@@ -1,0 +1,9 @@
+include includes/head.pug 
+body 
+ div(class="appli")
+  h1= titre
+  ol
+   each joueur in laListe 
+    li(class="ligneScore") #{joueur.pseudo} a gagné #{joueur.score} partie(s).
+ div(class="retour")
+  button: a(href="/menu") RETOUR AU MENU

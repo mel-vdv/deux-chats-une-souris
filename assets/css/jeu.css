@@ -1,0 +1,63 @@
+#partieEnCours{
+    left: 10%;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+#barreDuHaut{
+    width: 1000px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    border: black 2px solid;
+     background-color:rgb(253, 192, 139, 0.5);
+}
+#bienvenue{
+   flex: auto;
+   
+}
+#retourMenu{
+   flex: auto;
+  
+}
+#regleDuJeu{
+   flex: auto;
+
+}
+#espaceScore {
+    border:black 2px solid;
+    width: 1000px;
+    background-color: rgb(253, 192, 139, 0.5);
+}
+
+#limiteDuJeu{
+    background-color: rgb(253, 192, 139, 0.5);
+    width: 1000px;
+    height: 500px;
+    border: black 2px solid;
+}
+#carreRouge {
+    width: 70px;
+    height:70px;
+    position: relative;
+    display: block;
+}
+#avatar1 , #avatar2 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    display: block;
+}
+#partieFinie{
+    border: black 2px solid;
+    position: relative;
+    width: 40%;
+    left: 30%;
+    top: 200px;
+    background-color: rgb(253, 192, 139, 0.5);
+
+}

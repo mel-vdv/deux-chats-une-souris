@@ -1,0 +1,11 @@
+include includes/head.pug 
+body
+ div(class="appliJeu")
+   h1 bienvenue #{joueur}
+    div(class="zoneScore") 
+     div(id="voirscore")
+      button: a(href="/scores") Scores des joueurs
+     div(id="play")
+      button: a(href="/play") Jouer
+     div(id="deco")
+      button: a(href="/deconnect") Se déconnecter
