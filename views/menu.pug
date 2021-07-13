@@ -1,0 +1,11 @@
+include includes/head.pug 
+body
+ div(class="appliJeu")
+   h1 bienvenue #{joueur}
+    div(class="zoneScore") 
+     div(id="voirscore")
+      button: a(href="https://jeu-de-mel.herokuapp.com/scores") Scores des joueurs
+     div(id="play")
+      button: a(href="https://jeu-de-mel.herokuapp.com/play") Jouer
+     div(id="deco")
+      button: a(href="https://jeu-de-mel.herokuapp.com/deconnect") Se déconnecter

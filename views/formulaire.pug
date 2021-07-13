@@ -1,0 +1,16 @@
+include includes/head.pug 
+body
+ div(class="appli")
+  form(action= url   method="POST") 
+   div 
+    label(for="pseudo")= texte 
+   div(class="saisie")
+    input(type="text" name="pseudo")
+    if messageError 
+     p(class="error")= messageError
+   div
+    input(type="hidden" name="id" value="")
+   div(class="submit")
+    input(type="submit" value= valueSubmit)
+  button: a(href="https://jeu-de-mel.herokuapp.com/") RETOUR
+ 

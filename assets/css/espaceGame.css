@@ -1,0 +1,102 @@
+#haut{
+    display: flex;
+    
+}
+#titre{
+   flex: auto;
+   background-color: rosybrown;
+}
+#menu{
+   flex: auto;
+   background-color: royalblue;
+}
+#regles{
+   flex: auto;
+   background-color: yellow ;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    border-radius: 10px;
+    border: red 1px solid;
+    background-color: rgb(253, 192, 139, 0.5);
+    width: 15%;
+    margin-left: 42%;
+}
+
+button {
+    background-color: white;
+    width: 10%;
+    height: 40px;
+    margin-top: 40px;
+    margin-left: 45%;
+    border-radius: 10px;
+}
+
+a {
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+    font-weight: bold;
+}
+
+a:hover {
+    font-size: 1.1em;
+}
+
+#avatar1 , #avatar2 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    display: block;
+}
+
+#carreRouge {
+    width: 70px;
+    height:70px;
+    position: relative;
+    display: block;
+}
+
+
+#limiteDuJeu {
+    margin-left: 15%;
+    background-color: rgb(253, 192, 139, 0.5);
+    margin-top: 40px;
+    width: 1000px;
+    height: 500px;
+    border: red 3px solid;
+}
+
+#espaceScore {
+    border: red 2px solid;
+    background-color: rgb(253, 192, 139, 0.5);
+    display: block;
+    position: relative;
+    width: 40%;
+    top: 20px;
+    left: 30%;
+}
+
+#joueur1 {
+    background-color: lawngreen;
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+#joueur2 {
+    background-color: blueviolet;
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+#joueursAvatars {
+    margin-left: 20%;
+}

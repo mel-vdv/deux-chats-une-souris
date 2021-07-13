@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/jeu.css">
+    <script  type="text/javascript" src="./node_modules/socket.io/client-dist/socket.io.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+ // ceci est le doc html du joueur 1 : 
+            // les elements du DOM : 
+            const carreRouge = document.getElementById('carreRouge');
+            const limiteDuJeu = document.getElementById('limiteDuJeu');
+            const avatar1 = document.getElementById('avatar1');
+            const avatar2 = document.getElementById('avatar2');
+            const joueur1 = document.getElementById('j1');
+            const joueur2 = document.getElementById('j2');
+            const score1 = document.getElementById('score1');
+            const score2 = document.getElementById('score2');
+            const partieFinie = document.getElementById('partieFinie');
+            const partieEnCours = document.getElementById('partieEnCours');
+            const verdict = document.getElementById('verdict');
+            // les caractéristiques css:
+            carreRouge.style.top = '100px';
+            carreRouge.style.left = '100px';
+            partieFinie.style.display = 'none';
+            partieEnCours.style.display = 'block';
+            // variables-valeurs au départ:
+            let pj1 = 0;
+            //***************************************************************************************
+            const socket = io('https://jeu-de-mel.herokuapp.com/');
+            //***************************************************************************************
+            //evenement 1  : bienvenue:
+            socket.emit('bienvenue1');
+            socket.on('bienvenueRep1', (message) => {
+                const messageObj = JSON.parse(message);
+                document.getElementById('h2').innerHTML = `BIENVENUE ${messageObj.joueur1}`;
+
+            });
+            //**************************************************************************************
+            // évènement 2 : clic du joueur 1 sur le carré rouge : 
+            document.getElementById('carreRouge').addEventListener('click', (ev) => {
+                ev.preventDefault();
+
+                var newx = Math.floor(960 * Math.random());
+                var newy = Math.floor(460 * Math.random());
+                var positionCarreX = newx + 'px';
+                var positionCarreY = newy + 'px';
+                pj1++;
+                if (pj1 > 7) {
+                    partieFinie.style.display = 'block';
+                    partieEnCours.style.display = 'none';
+                    verdict.innerHTML = ' FELICITATIONS! vous avez gagné !! ';
+                    socket.emit('clientFin1');
+                }
+
+                else {
+                    var aEnvoyer = {
+                        'carreX': positionCarreX,
+                        'carreY': positionCarreY,
+                        'pointsJ1': pj1,
+                    };
+                    var aEnvoyerTexte = JSON.stringify(aEnvoyer);
+                    socket.emit('clientCarreRouge1', aEnvoyerTexte);
+                }
+            });
+            socket.on('serveurCarreRouge', (message) => {
+                const messageObjet = JSON.parse(message);
+                // si il n'y a pas d'autre joueur:
+                if (messageObjet.joueur2 === "personne" || messageObjet.joueur2 === null) {
+                    document.getElementById('attente').innerHTML = ' L\'autre joueur est déconnecté... Veuillez patienter...';
+                }
+
+                // si le joueur 2 est bien là: 
+                else {
+                    carreRouge.style.top = messageObjet.carreY;
+                    carreRouge.style.left = messageObjet.carreX;
+                    score1.innerHTML = `${messageObjet.joueur1} a ${messageObjet.pointsJ1} points /8 `;
+                    score2.innerHTML = `${messageObjet.joueur2} a ${messageObjet.pointsJ2} points /8`;
+                }
+
+            });
+            //****************************************************************************************
+            //évènement 3 : le joueur 1 bouge sa souris :
+            document.getElementById('limiteDuJeu').addEventListener('mousemove', (e) => {
+                document.getElementById('avatar1').style.left = e.pageX + 'px';
+                document.getElementById('avatar1').style.top = e.pageY + 'px';
+                var x1 = e.pageX + 'px';
+                var y1 = e.pageY + 'px';
+                var envoi = {
+                    'joueur1x': x1,
+                    'joueur1y': y1
+                };
+                var envoiTexte = JSON.stringify(envoi);
+                socket.emit('clientMouseMove1', envoiTexte);
+            });
+            socket.on('serveurMouseMove', (messager) => {
+                const messagerObj = JSON.parse(messager);
+                document.getElementById('avatar2').style.left = messagerObj.joueur2x;
+                document.getElementById('avatar2').style.top = messagerObj.joueur2y;
+            });
+            //******************************************************************************************
+            // evenement 4 : le joueur 2 a gagné : 
+            socket.on('serveurFin2', () => {
+                partieFinie.style.display = 'block';
+                partieEnCours.style.display = 'none';
+                verdict.innerHTML = "vous avez PERDU !! ";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="partieFinie">
+        <p>fin du jeu</p>
+        <p id="verdict"></p>
+        <button><a href="/scores">VOIR LES SCORES</a></button>
+    </div>
+    <div id="partieEnCours">
+
+        <div id="barreDuHaut">
+            <div id="bienvenue"><h2 id="h2"></h2></div>
+            <div id="retourMenu"><button><a href="/menu">RETOUR AU MENU</a></button></div>
+            <div id="regleDuJeu"><img src="/images/accueil.png" alt="chat deco"><p>ATTRAPE LA SOURIS</p> </div>
+        </div>
+        
+       
+        <div id="espaceScore">
+             <p id="attente"></p>
+            <div id="avatarScore1"></div>
+            <div>
+                <p id="score1"></p>
+            </div>
+            <div id="avatarScore2"></div>
+            <div>
+                <p id="score2"></p>
+            </div>
+        </div>
+
+        <div id="limiteDuJeu">
+            <div id="avatar1"> <img src="/images/chat1.png" alt="chat joueur 1"></div>
+            <div id="avatar2"><img src="/images/chat2.png" alt="chat joueur 2"></div>
+            <div id="carreRouge"><img src="/images/sourisJeu.png" alt="souris"></div>
+        
+        </div>
+    </div>
+</body>
+
+</html>
